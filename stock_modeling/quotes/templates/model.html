@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% if ticker %}
+	    {{ ticker }}
+    {% endif %}
+
+    {% if api %}
+        {% if api == "Error..." %}
+            There was a problem with your ticker symbol.
+            Please try again.
+        {% else %}
+
+            <h1>{{ api.companyName }}</h1><br/>
+            <h4>Stock quote</h4>
+            Price: {{ api.latestPrice }}<br/>
+            Previous Close: {{ api.previousClose }}<br/>
+            Market Cap: {{ api.marketCap }}<br/>
+            YTD change: {{ api.ytdChange }}<br/>
+            52Wk High: {{ api.week52High }}<br/>
+            52Wk Low: {{ api.week52Low }}<br/>
+
+        {% endif %}
+    {% endif %}
+
+
+    {% load static %}
+        <img src="{% static 'plots/historical_plot.jpg' %}" class="img-fluid" alt="Responsive image"/>
+        <img src="{% static 'plots/returns_plot.jpg' %}" class="img-fluid" alt="Responsive image"/>
+        <img src="{% static 'plots/log_returns_plot.jpg' %}" class="img-fluid" alt="Responsive image"/>
+        <img src="{% static 'quotes/static/plots/PACF.jpg' %}" class="img-fluid" alt="Responsive image"/>
+        <br/>
+        <br/>
+        <br/>
+        <h4> Model Forecast vs Actual Price over given Time Range </h4>
+        <img src="{% static 'plots/forecast_vs_actual.jpg' %}" class="img-fluid" alt="Responsive image"/>
+
+    <br/><br/>
+    <div class="card">
+        <div class="card-body">
+            {% if file_content %}
+	            <pre>
+		            {{ file_content }}
+	            </pre>
+            {% endif %}
+        </div>
+    </div>
+
+
+
+{% endblock %}
